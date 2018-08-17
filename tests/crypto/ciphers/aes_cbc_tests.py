@@ -1,6 +1,6 @@
 import unittest
 
-from pycodec.crypto.aes import AES
+from pycodec.crypto.ciphers.aes import AES
 
 
 class Testing_AES_CBC(unittest.TestCase):
