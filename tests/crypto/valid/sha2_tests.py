@@ -20,6 +20,10 @@ class Testing_SHA2(unittest.TestCase):
         sha_256 = SHA2.hash_sha256(bytes('The quick brown fox jumps over the lazy cog', encoding='ascii'))
         self.assertEqual(sha_256, bytes.fromhex('e4c4d8f3bf76b692de791a173e05321150f7a345b46484fe427f6acc7ecc81be'))
 
+    def test__SHA384_Encrypt_PeriodicA__Valid(self):
+        sha_384 = SHA2.hash_sha384(bytes('The quick brown fox jumps over the lazy cog', encoding='ascii'))
+        self.assertEqual(sha_384, bytes.fromhex('098cea620b0978caa5f0befba6ddcf22764bea977e1c70b3483edfdf1de25f4b40d6cea3cadf00f809d422feb1f0161b'))
+
     def test__SHA512_Encrypt_PeriodicA__Valid(self):
         sha_512 = SHA2.hash_sha512(bytes('The quick brown fox jumps over the lazy cog', encoding='ascii'))
         self.assertEqual(sha_512, bytes.fromhex('3eeee1d0e11733ef152a6c29503b3ae20c4f1f3cda4cb26f1bc1a41f91c7fe4ab3bd86494049e201c4bd5155f31ecb7a3c8606843c4cc8dfcab7da11c8ae5045'))

@@ -282,6 +282,126 @@ class SHA2:
         return hash.tobytes()
 
     @staticmethod
+    def hash_sha384(msg):
+        h0 = BitArray(uint=0xcbbb9d5dc1059ed8, length=64)
+        h1 = BitArray(uint=0x629a292a367cd507, length=64)
+        h2 = BitArray(uint=0x9159015a3070dd17, length=64)
+        h3 = BitArray(uint=0x152fecd8f70e5939, length=64)
+        h4 = BitArray(uint=0x67332667ffc00b31, length=64)
+        h5 = BitArray(uint=0x8eb44a8768581511, length=64)
+        h6 = BitArray(uint=0xdb0c2e0d64f98fa7, length=64)
+        h7 = BitArray(uint=0x47b5481dbefa4fa4, length=64)
+
+        bit_msg = BitArray(msg)
+        len_msg = len(bit_msg)
+        bit_msg += BitArray(bin='1')
+        k = (896 - (len_msg + 1)) % 1024
+        bit_msg += BitArray(bin='0'*k)
+        bit_msg += BitArray(int=len_msg, length=128)
+        num_chunks = len(bit_msg) // 1024
+        assert len(bit_msg) % 1024 == 0
+
+        bit_msg_chunks = list(bit_msg[1024 * num_chunk:
+                                      1024 * (num_chunk + 1)]
+                              for num_chunk in range(num_chunks))
+        for bit_msg_chunk in bit_msg_chunks:
+            msg_sub_chunks = list(bit_msg_chunk[64 * num_chunk:
+                                                64 * (num_chunk + 1)]
+                                  for num_chunk in range(16))
+            for i in range(16, 80):
+                chunk_i_15 = msg_sub_chunks[i-15]
+                temp0 = copy.deepcopy(chunk_i_15)
+                temp0.ror(1)
+                temp1 = copy.deepcopy(chunk_i_15)
+                temp1.ror(8)
+                temp2 = copy.deepcopy(chunk_i_15)
+                temp2 = temp2 >> 7
+                s0 = temp0 ^ temp1 ^ temp2
+
+                chunk_i_2 = msg_sub_chunks[i-2]
+                temp0 = copy.deepcopy(chunk_i_2)
+                temp0.ror(19)
+                temp1 = copy.deepcopy(chunk_i_2)
+                temp1.ror(61)
+                temp2 = copy.deepcopy(chunk_i_2)
+                temp2 = temp2 >> 6
+                s1 = temp0 ^ temp1 ^ temp2
+
+                msg_sub_chunks.append(BitArray(uint=(msg_sub_chunks[i-16].uint + s0.uint + msg_sub_chunks[i-7].uint + s1.uint) % (2 ** 64),
+                                               length=64))
+
+            a = copy.deepcopy(h0)
+            b = copy.deepcopy(h1)
+            c = copy.deepcopy(h2)
+            d = copy.deepcopy(h3)
+            e = copy.deepcopy(h4)
+            f = copy.deepcopy(h5)
+            g = copy.deepcopy(h6)
+            h = copy.deepcopy(h7)
+
+            for i in range(0, 80):
+                temp0 = copy.deepcopy(a)
+                temp0.ror(28)
+                temp1 = copy.deepcopy(a)
+                temp1.ror(34)
+                temp2 = copy.deepcopy(a)
+                temp2.ror(39)
+                Sum0 = temp0 ^ temp1 ^ temp2
+
+                Ma = (a & b) ^ (a & c) ^ (b & c)
+
+                t2 = BitArray(uint=(Sum0.uint + Ma.uint) % (2 ** 64),
+                              length=64)
+
+                temp0 = copy.deepcopy(e)
+                temp0.ror(14)
+                temp1 = copy.deepcopy(e)
+                temp1.ror(18)
+                temp2 = copy.deepcopy(e)
+                temp2.ror(41)
+                Sum1 = temp0 ^ temp1 ^ temp2
+
+                temp0 = e & f
+                temp1 = ~e
+                temp2 = copy.deepcopy(g)
+                Ch = temp0 ^ (temp1 & temp2)
+
+                t1 = BitArray(uint=(h.uint + Sum1.uint + Ch.uint + SHA2.constants_512[i] + msg_sub_chunks[i].uint) % (2 ** 64),
+                              length=64)
+
+                h = copy.deepcopy(g)
+                g = copy.deepcopy(f)
+                f = copy.deepcopy(e)
+                e = BitArray(uint=(d.uint + t1.uint) % (2 ** 64),
+                             length=64)
+                d = copy.deepcopy(c)
+                c = copy.deepcopy(b)
+                b = copy.deepcopy(a)
+                a = BitArray(uint=(t1.uint + t2.uint) % (2 ** 64),
+                             length=64)
+
+            h0 = BitArray(uint=(h0.uint + a.uint) % (2 ** 64),
+                          length=64)
+            h1 = BitArray(uint=(h1.uint + b.uint) % (2 ** 64),
+                          length=64)
+            h2 = BitArray(uint=(h2.uint + c.uint) % (2 ** 64),
+                          length=64)
+            h3 = BitArray(uint=(h3.uint + d.uint) % (2 ** 64),
+                          length=64)
+            h4 = BitArray(uint=(h4.uint + e.uint) % (2 ** 64),
+                          length=64)
+            h5 = BitArray(uint=(h5.uint + f.uint) % (2 ** 64),
+                          length=64)
+            h6 = BitArray(uint=(h6.uint + g.uint) % (2 ** 64),
+                          length=64)
+            h7 = BitArray(uint=(h7.uint + h.uint) % (2 ** 64),
+                          length=64)
+
+
+        hash = h0 + h1 + h2 + h3 + h4 + h5
+        return hash.tobytes()
+
+    @staticmethod
     def hash_sha512(msg):
         h0 = BitArray(uint=0x6a09e667f3bcc908, length=64)
         h1 = BitArray(uint=0xbb67ae8584caa73b, length=64)
