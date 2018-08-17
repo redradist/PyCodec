@@ -8,7 +8,7 @@ class SHA2:
     """
     Family of SHA2 hash functions
     """
-    constants_256 = [0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
+    Constants_256 = [0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
                      0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
                      0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
                      0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7, 0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
@@ -17,7 +17,7 @@ class SHA2:
                      0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
                      0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2]
 
-    constants_512 = [0x428a2f98d728ae22, 0x7137449123ef65cd, 0xb5c0fbcfec4d3b2f, 0xe9b5dba58189dbbc,
+    Constants_512 = [0x428a2f98d728ae22, 0x7137449123ef65cd, 0xb5c0fbcfec4d3b2f, 0xe9b5dba58189dbbc,
                      0x3956c25bf348b538, 0x59f111f1b605d019, 0x923f82a4af194f9b, 0xab1c5ed5da6d8118,
                      0xd807aa98a3030242, 0x12835b0145706fbe, 0x243185be4ee4b28c, 0x550c7dc3d5ffb4e2,
                      0x72be5d74f27b896f, 0x80deb1fe3b1696b1, 0x9bdc06a725c71235, 0xc19bf174cf692694,
@@ -125,7 +125,7 @@ class SHA2:
                 Ch = temp0 ^ (temp1 & temp2)
 
                 t1 = BitArray(
-                    uint=(h.uint + Sum1.uint + Ch.uint + SHA2.constants_256[i] + msg_sub_chunks[i].uint) % (2 ** 32),
+                    uint=(h.uint + Sum1.uint + Ch.uint + SHA2.Constants_256[i] + msg_sub_chunks[i].uint) % (2 ** 32),
                     length=32)
 
                 h = copy.deepcopy(g)
@@ -247,7 +247,7 @@ class SHA2:
                 temp2 = copy.deepcopy(g)
                 Ch = temp0 ^ (temp1 & temp2)
 
-                t1 = BitArray(uint=(h.uint + Sum1.uint + Ch.uint + SHA2.constants_256[i] + msg_sub_chunks[i].uint) % (2 ** 32),
+                t1 = BitArray(uint=(h.uint + Sum1.uint + Ch.uint + SHA2.Constants_256[i] + msg_sub_chunks[i].uint) % (2 ** 32),
                               length=32)
 
                 h = copy.deepcopy(g)
@@ -366,7 +366,7 @@ class SHA2:
                 temp2 = copy.deepcopy(g)
                 Ch = temp0 ^ (temp1 & temp2)
 
-                t1 = BitArray(uint=(h.uint + Sum1.uint + Ch.uint + SHA2.constants_512[i] + msg_sub_chunks[i].uint) % (2 ** 64),
+                t1 = BitArray(uint=(h.uint + Sum1.uint + Ch.uint + SHA2.Constants_512[i] + msg_sub_chunks[i].uint) % (2 ** 64),
                               length=64)
 
                 h = copy.deepcopy(g)
@@ -487,7 +487,7 @@ class SHA2:
                 Ch = temp0 ^ (temp1 & temp2)
 
                 t1 = BitArray(
-                    uint=(h.uint + Sum1.uint + Ch.uint + SHA2.constants_512[i] + msg_sub_chunks[i].uint) % (2 ** 64),
+                    uint=(h.uint + Sum1.uint + Ch.uint + SHA2.Constants_512[i] + msg_sub_chunks[i].uint) % (2 ** 64),
                     length=64)
 
                 h = copy.deepcopy(g)
@@ -606,7 +606,7 @@ class SHA2:
                 temp2 = copy.deepcopy(g)
                 Ch = temp0 ^ (temp1 & temp2)
 
-                t1 = BitArray(uint=(h.uint + Sum1.uint + Ch.uint + SHA2.constants_512[i] + msg_sub_chunks[i].uint) % (2 ** 64),
+                t1 = BitArray(uint=(h.uint + Sum1.uint + Ch.uint + SHA2.Constants_512[i] + msg_sub_chunks[i].uint) % (2 ** 64),
                               length=64)
 
                 h = copy.deepcopy(g)
@@ -725,7 +725,7 @@ class SHA2:
                 temp2 = copy.deepcopy(g)
                 Ch = temp0 ^ (temp1 & temp2)
 
-                t1 = BitArray(uint=(h.uint + Sum1.uint + Ch.uint + SHA2.constants_512[i] + msg_sub_chunks[i].uint) % (2 ** 64),
+                t1 = BitArray(uint=(h.uint + Sum1.uint + Ch.uint + SHA2.Constants_512[i] + msg_sub_chunks[i].uint) % (2 ** 64),
                               length=64)
 
                 h = copy.deepcopy(g)
