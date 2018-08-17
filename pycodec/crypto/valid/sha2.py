@@ -397,7 +397,6 @@ class SHA2:
             h7 = BitArray(uint=(h7.uint + h.uint) % (2 ** 64),
                           length=64)
 
-
         hash = h0 + h1 + h2 + h3 + h4 + h5
         return hash.tobytes()
 
