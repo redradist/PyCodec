@@ -1,6 +1,6 @@
 import unittest
 
-from pycodec.crypto.valid.sha2 import SHA2
+from pycodec.hash.sha2 import SHA2
 
 
 class Testing_SHA2(unittest.TestCase):
