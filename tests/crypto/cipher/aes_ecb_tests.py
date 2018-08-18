@@ -1,6 +1,6 @@
 import unittest
 
-from pycodec.crypto.ciphers.aes import AES
+from pycodec.crypto.cipher.aes import AES
 
 
 class Testing_AES_ECB(unittest.TestCase):
