@@ -67,20 +67,20 @@ class SHA2:
                                   for num_chunk in range(16))
             for i in range(16, 64):
                 chunk_i_15 = msg_sub_chunks[i - 15]
-                temp0 = copy.deepcopy(chunk_i_15)
+                temp0 = copy.copy(chunk_i_15)
                 temp0.ror(7)
-                temp1 = copy.deepcopy(chunk_i_15)
+                temp1 = copy.copy(chunk_i_15)
                 temp1.ror(18)
-                temp2 = copy.deepcopy(chunk_i_15)
+                temp2 = copy.copy(chunk_i_15)
                 temp2 = temp2 >> 3
                 s0 = temp0 ^ temp1 ^ temp2
 
                 chunk_i_2 = msg_sub_chunks[i - 2]
-                temp0 = copy.deepcopy(chunk_i_2)
+                temp0 = copy.copy(chunk_i_2)
                 temp0.ror(17)
-                temp1 = copy.deepcopy(chunk_i_2)
+                temp1 = copy.copy(chunk_i_2)
                 temp1.ror(19)
-                temp2 = copy.deepcopy(chunk_i_2)
+                temp2 = copy.copy(chunk_i_2)
                 temp2 = temp2 >> 10
                 s1 = temp0 ^ temp1 ^ temp2
 
@@ -88,21 +88,21 @@ class SHA2:
                     uint=(msg_sub_chunks[i - 16].uint + s0.uint + msg_sub_chunks[i - 7].uint + s1.uint) % (2 ** 32),
                     length=32))
 
-            a = copy.deepcopy(h0)
-            b = copy.deepcopy(h1)
-            c = copy.deepcopy(h2)
-            d = copy.deepcopy(h3)
-            e = copy.deepcopy(h4)
-            f = copy.deepcopy(h5)
-            g = copy.deepcopy(h6)
-            h = copy.deepcopy(h7)
+            a = h0
+            b = h1
+            c = h2
+            d = h3
+            e = h4
+            f = h5
+            g = h6
+            h = h7
 
             for i in range(0, 64):
-                temp0 = copy.deepcopy(a)
+                temp0 = copy.copy(a)
                 temp0.ror(2)
-                temp1 = copy.deepcopy(a)
+                temp1 = copy.copy(a)
                 temp1.ror(13)
-                temp2 = copy.deepcopy(a)
+                temp2 = copy.copy(a)
                 temp2.ror(22)
                 Sum0 = temp0 ^ temp1 ^ temp2
 
@@ -111,31 +111,31 @@ class SHA2:
                 t2 = BitArray(uint=(Sum0.uint + Ma.uint) % (2 ** 32),
                               length=32)
 
-                temp0 = copy.deepcopy(e)
+                temp0 = copy.copy(e)
                 temp0.ror(6)
-                temp1 = copy.deepcopy(e)
+                temp1 = copy.copy(e)
                 temp1.ror(11)
-                temp2 = copy.deepcopy(e)
+                temp2 = copy.copy(e)
                 temp2.ror(25)
                 Sum1 = temp0 ^ temp1 ^ temp2
 
                 temp0 = e & f
                 temp1 = ~e
-                temp2 = copy.deepcopy(g)
+                temp2 = copy.copy(g)
                 Ch = temp0 ^ (temp1 & temp2)
 
                 t1 = BitArray(
                     uint=(h.uint + Sum1.uint + Ch.uint + SHA2.Constants_256[i] + msg_sub_chunks[i].uint) % (2 ** 32),
                     length=32)
 
-                h = copy.deepcopy(g)
-                g = copy.deepcopy(f)
-                f = copy.deepcopy(e)
+                h = copy.copy(g)
+                g = copy.copy(f)
+                f = copy.copy(e)
                 e = BitArray(uint=(d.uint + t1.uint) % (2 ** 32),
                              length=32)
-                d = copy.deepcopy(c)
-                c = copy.deepcopy(b)
-                b = copy.deepcopy(a)
+                d = copy.copy(c)
+                c = copy.copy(b)
+                b = copy.copy(a)
                 a = BitArray(uint=(t1.uint + t2.uint) % (2 ** 32),
                              length=32)
 
@@ -161,9 +161,6 @@ class SHA2:
 
     @staticmethod
     def hash_sha256(msg):
-
-
-
         h0 = BitArray(uint=0x6a09e667, length=32)
         h1 = BitArray(uint=0xbb67ae85, length=32)
         h2 = BitArray(uint=0x3c6ef372, length=32)
@@ -191,41 +188,41 @@ class SHA2:
                                   for num_chunk in range(16))
             for i in range(16, 64):
                 chunk_i_15 = msg_sub_chunks[i-15]
-                temp0 = copy.deepcopy(chunk_i_15)
+                temp0 = copy.copy(chunk_i_15)
                 temp0.ror(7)
-                temp1 = copy.deepcopy(chunk_i_15)
+                temp1 = copy.copy(chunk_i_15)
                 temp1.ror(18)
-                temp2 = copy.deepcopy(chunk_i_15)
+                temp2 = copy.copy(chunk_i_15)
                 temp2 = temp2 >> 3
                 s0 = temp0 ^ temp1 ^ temp2
 
                 chunk_i_2 = msg_sub_chunks[i-2]
-                temp0 = copy.deepcopy(chunk_i_2)
+                temp0 = copy.copy(chunk_i_2)
                 temp0.ror(17)
-                temp1 = copy.deepcopy(chunk_i_2)
+                temp1 = copy.copy(chunk_i_2)
                 temp1.ror(19)
-                temp2 = copy.deepcopy(chunk_i_2)
+                temp2 = copy.copy(chunk_i_2)
                 temp2 = temp2 >> 10
                 s1 = temp0 ^ temp1 ^ temp2
 
                 msg_sub_chunks.append(BitArray(uint=(msg_sub_chunks[i-16].uint + s0.uint + msg_sub_chunks[i-7].uint + s1.uint) % (2 ** 32),
                                        length=32))
 
-            a = copy.deepcopy(h0)
-            b = copy.deepcopy(h1)
-            c = copy.deepcopy(h2)
-            d = copy.deepcopy(h3)
-            e = copy.deepcopy(h4)
-            f = copy.deepcopy(h5)
-            g = copy.deepcopy(h6)
-            h = copy.deepcopy(h7)
+            a = h0
+            b = h1
+            c = h2
+            d = h3
+            e = h4
+            f = h5
+            g = h6
+            h = h7
 
             for i in range(0, 64):
-                temp0 = copy.deepcopy(a)
+                temp0 = copy.copy(a)
                 temp0.ror(2)
-                temp1 = copy.deepcopy(a)
+                temp1 = copy.copy(a)
                 temp1.ror(13)
-                temp2 = copy.deepcopy(a)
+                temp2 = copy.copy(a)
                 temp2.ror(22)
                 Sum0 = temp0 ^ temp1 ^ temp2
 
@@ -234,30 +231,30 @@ class SHA2:
                 t2 = BitArray(uint=(Sum0.uint + Ma.uint) % (2 ** 32),
                               length=32)
 
-                temp0 = copy.deepcopy(e)
+                temp0 = copy.copy(e)
                 temp0.ror(6)
-                temp1 = copy.deepcopy(e)
+                temp1 = copy.copy(e)
                 temp1.ror(11)
-                temp2 = copy.deepcopy(e)
+                temp2 = copy.copy(e)
                 temp2.ror(25)
                 Sum1 = temp0 ^ temp1 ^ temp2
 
                 temp0 = e & f
                 temp1 = ~e
-                temp2 = copy.deepcopy(g)
+                temp2 = copy.copy(g)
                 Ch = temp0 ^ (temp1 & temp2)
 
                 t1 = BitArray(uint=(h.uint + Sum1.uint + Ch.uint + SHA2.Constants_256[i] + msg_sub_chunks[i].uint) % (2 ** 32),
                               length=32)
 
-                h = copy.deepcopy(g)
-                g = copy.deepcopy(f)
-                f = copy.deepcopy(e)
+                h = copy.copy(g)
+                g = copy.copy(f)
+                f = copy.copy(e)
                 e = BitArray(uint=(d.uint + t1.uint) % (2 ** 32),
                              length=32)
-                d = copy.deepcopy(c)
-                c = copy.deepcopy(b)
-                b = copy.deepcopy(a)
+                d = copy.copy(c)
+                c = copy.copy(b)
+                b = copy.copy(a)
                 a = BitArray(uint=(t1.uint + t2.uint) % (2 ** 32),
                              length=32)
 
@@ -310,41 +307,41 @@ class SHA2:
                                   for num_chunk in range(16))
             for i in range(16, 80):
                 chunk_i_15 = msg_sub_chunks[i-15]
-                temp0 = copy.deepcopy(chunk_i_15)
+                temp0 = copy.copy(chunk_i_15)
                 temp0.ror(1)
-                temp1 = copy.deepcopy(chunk_i_15)
+                temp1 = copy.copy(chunk_i_15)
                 temp1.ror(8)
-                temp2 = copy.deepcopy(chunk_i_15)
+                temp2 = copy.copy(chunk_i_15)
                 temp2 = temp2 >> 7
                 s0 = temp0 ^ temp1 ^ temp2
 
                 chunk_i_2 = msg_sub_chunks[i-2]
-                temp0 = copy.deepcopy(chunk_i_2)
+                temp0 = copy.copy(chunk_i_2)
                 temp0.ror(19)
-                temp1 = copy.deepcopy(chunk_i_2)
+                temp1 = copy.copy(chunk_i_2)
                 temp1.ror(61)
-                temp2 = copy.deepcopy(chunk_i_2)
+                temp2 = copy.copy(chunk_i_2)
                 temp2 = temp2 >> 6
                 s1 = temp0 ^ temp1 ^ temp2
 
                 msg_sub_chunks.append(BitArray(uint=(msg_sub_chunks[i-16].uint + s0.uint + msg_sub_chunks[i-7].uint + s1.uint) % (2 ** 64),
                                                length=64))
 
-            a = copy.deepcopy(h0)
-            b = copy.deepcopy(h1)
-            c = copy.deepcopy(h2)
-            d = copy.deepcopy(h3)
-            e = copy.deepcopy(h4)
-            f = copy.deepcopy(h5)
-            g = copy.deepcopy(h6)
-            h = copy.deepcopy(h7)
+            a = h0
+            b = h1
+            c = h2
+            d = h3
+            e = h4
+            f = h5
+            g = h6
+            h = h7
 
             for i in range(0, 80):
-                temp0 = copy.deepcopy(a)
+                temp0 = copy.copy(a)
                 temp0.ror(28)
-                temp1 = copy.deepcopy(a)
+                temp1 = copy.copy(a)
                 temp1.ror(34)
-                temp2 = copy.deepcopy(a)
+                temp2 = copy.copy(a)
                 temp2.ror(39)
                 Sum0 = temp0 ^ temp1 ^ temp2
 
@@ -353,30 +350,30 @@ class SHA2:
                 t2 = BitArray(uint=(Sum0.uint + Ma.uint) % (2 ** 64),
                               length=64)
 
-                temp0 = copy.deepcopy(e)
+                temp0 = copy.copy(e)
                 temp0.ror(14)
-                temp1 = copy.deepcopy(e)
+                temp1 = copy.copy(e)
                 temp1.ror(18)
-                temp2 = copy.deepcopy(e)
+                temp2 = copy.copy(e)
                 temp2.ror(41)
                 Sum1 = temp0 ^ temp1 ^ temp2
 
                 temp0 = e & f
                 temp1 = ~e
-                temp2 = copy.deepcopy(g)
+                temp2 = copy.copy(g)
                 Ch = temp0 ^ (temp1 & temp2)
 
                 t1 = BitArray(uint=(h.uint + Sum1.uint + Ch.uint + SHA2.Constants_512[i] + msg_sub_chunks[i].uint) % (2 ** 64),
                               length=64)
 
-                h = copy.deepcopy(g)
-                g = copy.deepcopy(f)
-                f = copy.deepcopy(e)
+                h = copy.copy(g)
+                g = copy.copy(f)
+                f = copy.copy(e)
                 e = BitArray(uint=(d.uint + t1.uint) % (2 ** 64),
                              length=64)
-                d = copy.deepcopy(c)
-                c = copy.deepcopy(b)
-                b = copy.deepcopy(a)
+                d = copy.copy(c)
+                c = copy.copy(b)
+                b = copy.copy(a)
                 a = BitArray(uint=(t1.uint + t2.uint) % (2 ** 64),
                              length=64)
 
@@ -429,20 +426,20 @@ class SHA2:
                                   for num_chunk in range(16))
             for i in range(16, 80):
                 chunk_i_15 = msg_sub_chunks[i - 15]
-                temp0 = copy.deepcopy(chunk_i_15)
+                temp0 = copy.copy(chunk_i_15)
                 temp0.ror(1)
-                temp1 = copy.deepcopy(chunk_i_15)
+                temp1 = copy.copy(chunk_i_15)
                 temp1.ror(8)
-                temp2 = copy.deepcopy(chunk_i_15)
+                temp2 = copy.copy(chunk_i_15)
                 temp2 = temp2 >> 7
                 s0 = temp0 ^ temp1 ^ temp2
 
                 chunk_i_2 = msg_sub_chunks[i - 2]
-                temp0 = copy.deepcopy(chunk_i_2)
+                temp0 = copy.copy(chunk_i_2)
                 temp0.ror(19)
-                temp1 = copy.deepcopy(chunk_i_2)
+                temp1 = copy.copy(chunk_i_2)
                 temp1.ror(61)
-                temp2 = copy.deepcopy(chunk_i_2)
+                temp2 = copy.copy(chunk_i_2)
                 temp2 = temp2 >> 6
                 s1 = temp0 ^ temp1 ^ temp2
 
@@ -450,21 +447,21 @@ class SHA2:
                     uint=(msg_sub_chunks[i - 16].uint + s0.uint + msg_sub_chunks[i - 7].uint + s1.uint) % (2 ** 64),
                     length=64))
 
-            a = copy.deepcopy(h0)
-            b = copy.deepcopy(h1)
-            c = copy.deepcopy(h2)
-            d = copy.deepcopy(h3)
-            e = copy.deepcopy(h4)
-            f = copy.deepcopy(h5)
-            g = copy.deepcopy(h6)
-            h = copy.deepcopy(h7)
+            a = h0
+            b = h1
+            c = h2
+            d = h3
+            e = h4
+            f = h5
+            g = h6
+            h = h7
 
             for i in range(0, 80):
-                temp0 = copy.deepcopy(a)
+                temp0 = copy.copy(a)
                 temp0.ror(28)
-                temp1 = copy.deepcopy(a)
+                temp1 = copy.copy(a)
                 temp1.ror(34)
-                temp2 = copy.deepcopy(a)
+                temp2 = copy.copy(a)
                 temp2.ror(39)
                 Sum0 = temp0 ^ temp1 ^ temp2
 
@@ -473,31 +470,31 @@ class SHA2:
                 t2 = BitArray(uint=(Sum0.uint + Ma.uint) % (2 ** 64),
                               length=64)
 
-                temp0 = copy.deepcopy(e)
+                temp0 = copy.copy(e)
                 temp0.ror(14)
-                temp1 = copy.deepcopy(e)
+                temp1 = copy.copy(e)
                 temp1.ror(18)
-                temp2 = copy.deepcopy(e)
+                temp2 = copy.copy(e)
                 temp2.ror(41)
                 Sum1 = temp0 ^ temp1 ^ temp2
 
                 temp0 = e & f
                 temp1 = ~e
-                temp2 = copy.deepcopy(g)
+                temp2 = copy.copy(g)
                 Ch = temp0 ^ (temp1 & temp2)
 
                 t1 = BitArray(
                     uint=(h.uint + Sum1.uint + Ch.uint + SHA2.Constants_512[i] + msg_sub_chunks[i].uint) % (2 ** 64),
                     length=64)
 
-                h = copy.deepcopy(g)
-                g = copy.deepcopy(f)
-                f = copy.deepcopy(e)
+                h = copy.copy(g)
+                g = copy.copy(f)
+                f = copy.copy(e)
                 e = BitArray(uint=(d.uint + t1.uint) % (2 ** 64),
                              length=64)
-                d = copy.deepcopy(c)
-                c = copy.deepcopy(b)
-                b = copy.deepcopy(a)
+                d = copy.copy(c)
+                c = copy.copy(b)
+                b = copy.copy(a)
                 a = BitArray(uint=(t1.uint + t2.uint) % (2 ** 64),
                              length=64)
 
@@ -550,41 +547,41 @@ class SHA2:
                                   for num_chunk in range(16))
             for i in range(16, 80):
                 chunk_i_15 = msg_sub_chunks[i-15]
-                temp0 = copy.deepcopy(chunk_i_15)
+                temp0 = copy.copy(chunk_i_15)
                 temp0.ror(1)
-                temp1 = copy.deepcopy(chunk_i_15)
+                temp1 = copy.copy(chunk_i_15)
                 temp1.ror(8)
-                temp2 = copy.deepcopy(chunk_i_15)
+                temp2 = copy.copy(chunk_i_15)
                 temp2 = temp2 >> 7
                 s0 = temp0 ^ temp1 ^ temp2
 
                 chunk_i_2 = msg_sub_chunks[i-2]
-                temp0 = copy.deepcopy(chunk_i_2)
+                temp0 = copy.copy(chunk_i_2)
                 temp0.ror(19)
-                temp1 = copy.deepcopy(chunk_i_2)
+                temp1 = copy.copy(chunk_i_2)
                 temp1.ror(61)
-                temp2 = copy.deepcopy(chunk_i_2)
+                temp2 = copy.copy(chunk_i_2)
                 temp2 = temp2 >> 6
                 s1 = temp0 ^ temp1 ^ temp2
 
                 msg_sub_chunks.append(BitArray(uint=(msg_sub_chunks[i-16].uint + s0.uint + msg_sub_chunks[i-7].uint + s1.uint) % (2 ** 64),
                                                length=64))
 
-            a = copy.deepcopy(h0)
-            b = copy.deepcopy(h1)
-            c = copy.deepcopy(h2)
-            d = copy.deepcopy(h3)
-            e = copy.deepcopy(h4)
-            f = copy.deepcopy(h5)
-            g = copy.deepcopy(h6)
-            h = copy.deepcopy(h7)
+            a = h0
+            b = h1
+            c = h2
+            d = h3
+            e = h4
+            f = h5
+            g = h6
+            h = h7
 
             for i in range(0, 80):
-                temp0 = copy.deepcopy(a)
+                temp0 = copy.copy(a)
                 temp0.ror(28)
-                temp1 = copy.deepcopy(a)
+                temp1 = copy.copy(a)
                 temp1.ror(34)
-                temp2 = copy.deepcopy(a)
+                temp2 = copy.copy(a)
                 temp2.ror(39)
                 Sum0 = temp0 ^ temp1 ^ temp2
 
@@ -593,30 +590,30 @@ class SHA2:
                 t2 = BitArray(uint=(Sum0.uint + Ma.uint) % (2 ** 64),
                               length=64)
 
-                temp0 = copy.deepcopy(e)
+                temp0 = copy.copy(e)
                 temp0.ror(14)
-                temp1 = copy.deepcopy(e)
+                temp1 = copy.copy(e)
                 temp1.ror(18)
-                temp2 = copy.deepcopy(e)
+                temp2 = copy.copy(e)
                 temp2.ror(41)
                 Sum1 = temp0 ^ temp1 ^ temp2
 
                 temp0 = e & f
                 temp1 = ~e
-                temp2 = copy.deepcopy(g)
+                temp2 = copy.copy(g)
                 Ch = temp0 ^ (temp1 & temp2)
 
                 t1 = BitArray(uint=(h.uint + Sum1.uint + Ch.uint + SHA2.Constants_512[i] + msg_sub_chunks[i].uint) % (2 ** 64),
                               length=64)
 
-                h = copy.deepcopy(g)
-                g = copy.deepcopy(f)
-                f = copy.deepcopy(e)
+                h = copy.copy(g)
+                g = copy.copy(f)
+                f = copy.copy(e)
                 e = BitArray(uint=(d.uint + t1.uint) % (2 ** 64),
                              length=64)
-                d = copy.deepcopy(c)
-                c = copy.deepcopy(b)
-                b = copy.deepcopy(a)
+                d = copy.copy(c)
+                c = copy.copy(b)
+                b = copy.copy(a)
                 a = BitArray(uint=(t1.uint + t2.uint) % (2 ** 64),
                              length=64)
 
@@ -669,41 +666,41 @@ class SHA2:
                                   for num_chunk in range(16))
             for i in range(16, 80):
                 chunk_i_15 = msg_sub_chunks[i-15]
-                temp0 = copy.deepcopy(chunk_i_15)
+                temp0 = copy.copy(chunk_i_15)
                 temp0.ror(1)
-                temp1 = copy.deepcopy(chunk_i_15)
+                temp1 = copy.copy(chunk_i_15)
                 temp1.ror(8)
-                temp2 = copy.deepcopy(chunk_i_15)
+                temp2 = copy.copy(chunk_i_15)
                 temp2 = temp2 >> 7
                 s0 = temp0 ^ temp1 ^ temp2
 
                 chunk_i_2 = msg_sub_chunks[i-2]
-                temp0 = copy.deepcopy(chunk_i_2)
+                temp0 = copy.copy(chunk_i_2)
                 temp0.ror(19)
-                temp1 = copy.deepcopy(chunk_i_2)
+                temp1 = copy.copy(chunk_i_2)
                 temp1.ror(61)
-                temp2 = copy.deepcopy(chunk_i_2)
+                temp2 = copy.copy(chunk_i_2)
                 temp2 = temp2 >> 6
                 s1 = temp0 ^ temp1 ^ temp2
 
                 msg_sub_chunks.append(BitArray(uint=(msg_sub_chunks[i-16].uint + s0.uint + msg_sub_chunks[i-7].uint + s1.uint) % (2 ** 64),
                                                length=64))
 
-            a = copy.deepcopy(h0)
-            b = copy.deepcopy(h1)
-            c = copy.deepcopy(h2)
-            d = copy.deepcopy(h3)
-            e = copy.deepcopy(h4)
-            f = copy.deepcopy(h5)
-            g = copy.deepcopy(h6)
-            h = copy.deepcopy(h7)
+            a = h0
+            b = h1
+            c = h2
+            d = h3
+            e = h4
+            f = h5
+            g = h6
+            h = h7
 
             for i in range(0, 80):
-                temp0 = copy.deepcopy(a)
+                temp0 = copy.copy(a)
                 temp0.ror(28)
-                temp1 = copy.deepcopy(a)
+                temp1 = copy.copy(a)
                 temp1.ror(34)
-                temp2 = copy.deepcopy(a)
+                temp2 = copy.copy(a)
                 temp2.ror(39)
                 Sum0 = temp0 ^ temp1 ^ temp2
 
@@ -712,30 +709,30 @@ class SHA2:
                 t2 = BitArray(uint=(Sum0.uint + Ma.uint) % (2 ** 64),
                               length=64)
 
-                temp0 = copy.deepcopy(e)
+                temp0 = copy.copy(e)
                 temp0.ror(14)
-                temp1 = copy.deepcopy(e)
+                temp1 = copy.copy(e)
                 temp1.ror(18)
-                temp2 = copy.deepcopy(e)
+                temp2 = copy.copy(e)
                 temp2.ror(41)
                 Sum1 = temp0 ^ temp1 ^ temp2
 
                 temp0 = e & f
                 temp1 = ~e
-                temp2 = copy.deepcopy(g)
+                temp2 = copy.copy(g)
                 Ch = temp0 ^ (temp1 & temp2)
 
                 t1 = BitArray(uint=(h.uint + Sum1.uint + Ch.uint + SHA2.Constants_512[i] + msg_sub_chunks[i].uint) % (2 ** 64),
                               length=64)
 
-                h = copy.deepcopy(g)
-                g = copy.deepcopy(f)
-                f = copy.deepcopy(e)
+                h = copy.copy(g)
+                g = copy.copy(f)
+                f = copy.copy(e)
                 e = BitArray(uint=(d.uint + t1.uint) % (2 ** 64),
                              length=64)
-                d = copy.deepcopy(c)
-                c = copy.deepcopy(b)
-                b = copy.deepcopy(a)
+                d = copy.copy(c)
+                c = copy.copy(b)
+                b = copy.copy(a)
                 a = BitArray(uint=(t1.uint + t2.uint) % (2 ** 64),
                              length=64)
 
