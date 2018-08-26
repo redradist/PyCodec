@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="pycodec",
-    version="0.0.2",
+    version="0.1.0",
     author="Denis Kotov (redradist, RedRadist, redra, RedRa)",
     author_email="redradist@gmail.com",
     description="PyCodec is a package for coding and decoding any message by any Coders and Decoders also as Crypto Coders and Crypto Decoders",
