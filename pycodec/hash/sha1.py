@@ -6,9 +6,8 @@ from bitstring import BitArray
 
 class SHA1:
     """
-    Family of SHA2 hash functions
+    SHA1 hash function
     """
-
     @staticmethod
     def hash(msg):
         h0 = BitArray(uint=0x67452301, length=32)
