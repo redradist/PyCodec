@@ -755,3 +755,11 @@ class SHA2:
 
         hash = h0 + h1 + h2 + h3 + h4 + h5 + h6 + h7
         return hash.tobytes()
+
+
+SHA2.hash_sha224.block_size = 512
+SHA2.hash_sha256.block_size = 512
+SHA2.hash_sha384.block_size = 1024
+SHA2.hash_sha512.block_size = 1024
+SHA2.hash_sha512_224.block_size = 1024
+SHA2.hash_sha512_256.block_size = 1024

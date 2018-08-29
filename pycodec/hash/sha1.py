@@ -84,3 +84,6 @@ class SHA1:
 
         hash = h0 + h1 + h2 + h3 + h4
         return hash.tobytes()
+
+
+SHA1.hash.block_size = 512
