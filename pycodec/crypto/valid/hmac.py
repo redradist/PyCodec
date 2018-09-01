@@ -6,6 +6,17 @@ class HMAC:
     """
     HMAC function
     """
+    def __init__(self, key, hash_func):
+        self.key = key
+        self.hash_func = hash_func
+
+    def calculate(self, msg):
+        return HMAC.hash(self.key, msg, self.hash_func)
+
+    @staticmethod
+    def new(key, hash_func):
+        return HMAC(key, hash_func)
+
     @staticmethod
     def hash(key, msg, hash_func):
         block_size = hash_func.block_size // 8
